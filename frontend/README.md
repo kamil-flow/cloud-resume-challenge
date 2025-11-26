@@ -20,6 +20,19 @@ Convert this resume format to html.
 Please don't use a css framework
 Please use the least amount of css tags
 ```
-
-
+This is my example
 ![](./docs/CV.jpg)
+
+This is ![generated code](./docs/chat-23-11-2025.html) which I will refactor.
+
+This is what the generated HTML looks like unaltered:
+
+![](./docs/preview-chat-html.jpg)
+
+### HTML Adjustments
+
+- UTF8 supports most languages.
+- Becauser I will be applying mobile styling to the website I'll include the viewport meta tag width=device-width so mobile styling scales normally.
+- I'll extract me style into its own stylesheet after I am content with the HTML markup
+- I'll simplfy the HTML markups css selector to be as minimal as possible.
+- For teh HTML page I'll use soft tabs two spaces.
