@@ -60,3 +60,11 @@ http-server will serve a public folder by default where the command is run.
 cd frontend
 http-server
 ```
+
+## Image Size Consideration
+
+I have backgriound texture that was 5.9MB
+I'm going to optimize it to webpage with an online tool.
+
+
+rgb(240,255,255); background
