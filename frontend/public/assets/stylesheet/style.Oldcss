@@ -1,0 +1,77 @@
+* { 
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+} 
+
+h1,h2,h3,h4,h5 {
+    margin: 0px;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background: url("/assets/images/small-technology-bg.webp") center/cover no-repeat;
+
+    margin: 0px;
+    padding: 0px
+
+}
+main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+
+
+header {
+    background-color: rgb(21, 34, 34);
+    flex-shrink: 1;
+}
+
+article {
+    width: 1100px;
+    background-color: rgb(240,255,255);
+    flex-grow: 1;
+    display: flex;
+    padding: 32px;
+    
+}
+
+body[location='resume'] section.header {
+    text-align: center;
+    border-bottom: solid 1px rgb(0, 0, 0);
+}
+header nav {
+    display: flex;
+    flex-direction: row;
+    /*justify-content: flex-start;    ensure items stay left */
+    /*margin-left: 0;                /* override inherited centering */
+}
+
+header nav a {
+    padding: 24px;
+    color: rgb(255, 255, 255);
+}
+
+header nav a.active {
+   background: rgba(255, 255, 255, 0.2);
+}
+
+div.content_wrap {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+div.content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+    /*width: 1100px;*/
+    /*box-shadow: 0px 1px 9px 1px rgba(0, 0, 0, 0.5); */
+    /*padding: 24px;*/
+
+/*background-color: rgb(240,255,255);*/

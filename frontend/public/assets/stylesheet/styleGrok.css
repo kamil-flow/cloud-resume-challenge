@@ -21,7 +21,7 @@ main {
 }
 
 header {
-    background-color: rgb(1, 45, 51);
+    background-color: rgb(21, 34, 34);
     padding: 0 20px;                 /* some breathing room on mobile */
 }
 
@@ -50,19 +50,19 @@ div.content_wrap {
     flex-grow: 1;
     display: flex;
     justify-content: center;
-    align-items: center;         /* ← NOW truly centered vertically on all screens */
-    padding: 40px 20px;
+    align-items: flex-start;         /* change to center if you want vertical center too */
+    padding: 40px 20px;              /* space from top + mobile friendliness */
     overflow-y: auto;
 }
 
 div.content {
     width: 100%;
-    max-width: 960px;            /* ← Reduced from 1100px → looks premium & balanced */
+    max-width: 1100px;               /* your desired width */
     background-color: rgb(240, 255, 255);
-    padding: 60px 70px;          /* slightly more generous, luxurious padding */
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    line-height: 1.7;
+    padding: 48px 60px;              /* generous internal padding */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    line-height: 1.6;
 }
 
 /* Optional: make it truly centered vertically too (great for resumes) */
