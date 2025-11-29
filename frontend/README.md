@@ -67,4 +67,8 @@ I have backgriound texture that was 5.9MB
 I'm going to optimize it to webp with an online tool. Resized to 187KB
 
 
-rgb(240,255,255); background
+## Frontend Framework Consideration
+
+- used React because it's the most popular javascript framework
+- used Vite.js over webpack because my frontend is simple
+- configured React Router V7 in declerative mode becaus the app is simple
