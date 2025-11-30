@@ -82,32 +82,3 @@ div.content {
         margin-bottom: 20px;
     }
 }
-
-/* Nice header styling inside the resume */
-body[location='resume'] section.header {
-    text-align: center;
-    padding-bottom: 0px;
-    border-bottom: 2px solid #000;
-    margin-bottom: 30px;
-}
-
-body[location='resume'] .item_heading {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-body[location='resume'] .item_heading .details {
-    text-align: right;
-}
-
-body[location='resume'] section h2 {
-    border-bottom: 2px solid #000;
-    padding: 8px 0px;
-    font-size: 16px;
-    text-transform: uppercase;
-}
-
-body[location='resume'] .item {
-    padding: 6px 0px;
-}

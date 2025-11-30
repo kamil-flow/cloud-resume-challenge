@@ -1,18 +1,12 @@
 import React from "react"
+import 'css/pages/resume.css'
+import resumeData from "data/ResumeData";
+import ResumeHeader from "comps/resume/ResumeHeader.jsx";
 
 export default function ResumePage() {
   return (
         <>
-          <section className="header">
-            <h1>Kamil Wolczynski</h1>
-            <p>
-              Kalmthout, Belgium •{" "}
-              <a href="mailto:kamil.wolfczynski@gmail.com">
-                kamil.wolfczynski@gmail.com
-              </a>{" "}
-              • +31 61 123 123
-            </p>
-          </section>  
+          <ResumeHeader person={resumeData.person}></ResumeHeader>
           <section className="professional-summary">
             <h2>Professional summary</h2>
             <div className="items">
