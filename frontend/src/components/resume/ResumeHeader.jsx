@@ -10,12 +10,14 @@ export default function ResumeHeader({ person }) {
       <h1>{name}</h1>
       <p>
         <span className="address">{locationLine}</span>
+        {/*
         <span className="bull"> • </span>
         <span className="email">
           <a href={`mailto:${email}`}>{email}</a>
         </span>
         <span className="bull"> • </span>
         <span className="phone">{phone}</span>
+        */}
       </p>
     </section>
   );

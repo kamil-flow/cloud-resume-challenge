@@ -3,8 +3,8 @@ import Header from 'comps/Header'
 import { Outlet, NavLink, useLocation } from "react-router";
 
 import 'css/default.css'
-import 'css/pygments.css'
-import 'css/markdown.css'
+
+
 
 export default function Layout() {
   const location = useLocation();
