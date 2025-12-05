@@ -1,11 +1,14 @@
+@import './../breakpoints.css';
+
+
 
 /* Nice header styling inside the resume */
-body[location='resume'] section.header {
-    text-align: center;
-    padding-bottom: 0px;
-    border-bottom: 2px solid #000;
-    margin-bottom: 30px;
-}
+
+  /*  text-align: center;*/
+  /*  padding-bottom: 0px;*/
+  /*  border-bottom: 2px solid #000;*/
+  /*  margin-bottom: 30px;*/
+
 
 body[location='resume'] .item_heading {
     display: flex;
@@ -26,4 +29,17 @@ body[location='resume'] section h2 {
 
 body[location='resume'] .item {
     padding: 6px 0px;
+}
+
+@media (--small-only) {
+    body[location='resume'] {
+     
+    }
+    
+}
+
+@media (--medium-up) {
+    body[location='resume'] {
+    }
+    
 }
