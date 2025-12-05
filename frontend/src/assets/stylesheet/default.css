@@ -1,3 +1,4 @@
+@import './breakpoints.css';
 * { 
     box-sizing: border-box;
     font-family: Verdana, Geneva, Tahoma, sans-serif; 
@@ -81,4 +82,18 @@ div.content {
         margin-top: 20px;
         margin-bottom: 20px;
     }
+}
+
+@media (--small-only) {
+    {
+      
+    }
+    
+}
+
+@media (--medium-up) {
+   div.content_wrap {
+        padding: 40px 20px; 
+    }
+    
 }
