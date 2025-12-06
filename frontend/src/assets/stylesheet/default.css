@@ -29,7 +29,12 @@ header {
 header nav {
     display: flex;
     justify-content: center;         /* ← THIS centers the nav horizontally */
-    gap: 20px;                       /* modern spacing instead of fixed padding */
+    gap: 20px;    
+    text-decoration: none;
+        &:hover {
+        text-decoration: underline;
+        }
+                                   /* modern spacing instead of fixed padding */
 }
 
 header nav a {

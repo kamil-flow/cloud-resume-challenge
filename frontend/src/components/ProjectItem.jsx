@@ -1,20 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export default function ProjectItem({ person }) {
-  // Destructure directly from person (no .contact!)
-  const project = props.project;
+export default function ProjectItem({ project }) {
+  const placeholder = "https://placehold.co/320x200";
+ 
 
   return (
     <div className="projects_item">
-        <div class="project_info">
+        <div className="project_info">
             <h2>{project.name}</h2>
             <p>{project.description}</p>
-            <NavLink to="/projects/{project.handle}">View Project Details</NavLink>
+            <NavLink to={`/project/${project.handle}`}>View Project Details</NavLink>
 
         </div>
         
-        <img src={project.thumbnail}></img>
+        <img src={project.thumbnail || placeholder}></img>
         
       
         

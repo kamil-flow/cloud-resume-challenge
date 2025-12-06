@@ -1,17 +1,14 @@
 import React from "react"
-import 'css/pages/projects.css'
-import projectsData from "../data/projectsData"
-import ProjectItem from 'comps/ProjectItem'
+import "css/pages/projects.css"
+import projectsData from "data/projectsData"
+
+import { useParams } from "react-router-dom"
 
 export default function ProjectPage() {
+     const { handle } = useParams();
   return (
         <>
-            <div class="projects">
-                {projectsData.map((project) => (
-                    <ProjectItem key={project.handle} project={projectData} />
-                ))}
-
-            </div>
+            
         </>
     )
 }    
