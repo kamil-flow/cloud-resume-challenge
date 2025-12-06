@@ -10,7 +10,7 @@ export default function ProjectItem({ project }) {
         <div className="project_info">
             <h2>{project.name}</h2>
             <p>{project.description}</p>
-            <NavLink to={`/project/${project.handle}`}>View Project Details</NavLink>
+            <NavLink className="bttn" to={`/project/${project.handle}`}>View Project Details</NavLink>
 
         </div>
         

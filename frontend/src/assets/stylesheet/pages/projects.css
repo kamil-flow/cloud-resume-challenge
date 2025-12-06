@@ -12,24 +12,10 @@ body[location='projects'] {
        
         .project_info {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             gap: 12px;
+            width: fit-content;
            
-        }
-             a {
-                display: inline-block;
-                border-radius: 999px;
-                padding: 12px 32px;
-                background: rgb(0, 0, 0);
-                color: rgb(255, 255, 255);
-                align-self: flex-start;
-                text-decoration: none;
-                &:hover {
-                    text-decoration: underline;
-                }
-                
-                }
-
-    
+        } 
     }
 }

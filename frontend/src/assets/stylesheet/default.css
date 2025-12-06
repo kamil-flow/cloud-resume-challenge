@@ -76,7 +76,23 @@ div.content {
     line-height: 1.7;
 }
 
+ .bttn {
+    border-radius: 999px;
+    padding: 12px 32px;
+    background: rgb(156, 234, 243);
+    color: rgb(255, 255, 255);
+    align-self: flex-start;
+    text-decoration: none;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    margin-bottom: 12px;
 
+    &:hover {
+        text-decoration: underline;
+    }
+}  
 
 /* Optional: make it truly centered vertically too (great for resumes) */
 @media (min-height: 700px) {

@@ -16,7 +16,7 @@ createRoot(document.querySelector('main')).render(
         <Route path="/" element={<HomePage />} />
         <Route path="/resume" element={<ResumePage />} />
         <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/projects/:handle" element={<ProjectPage />} />
+        <Route path="/project/:handle" element={<ProjectPage />} />
       </Route>
     </Routes>  
   </BrowserRouter>,
