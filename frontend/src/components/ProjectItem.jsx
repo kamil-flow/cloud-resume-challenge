@@ -13,11 +13,9 @@ export default function ProjectItem({ project }) {
             <NavLink className="bttn" to={`/project/${project.handle}`}>View Project Details</NavLink>
 
         </div>
-        
-        <img src={project.thumbnail || placeholder}></img>
-        
-      
-        
+        <NavLink className='thumb' to={`/project/${project.handle}`}>
+          <img src={project.thumbnail || placeholder}></img>
+        </NavLink>        
     </div>
   );
 }

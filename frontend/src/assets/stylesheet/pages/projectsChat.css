@@ -1,22 +1,22 @@
 @import './../breakpoints.css';
 
-/* base: desktop / tablet - cap the image so it never becomes huge */
-body[location='projects'] .thumb {
-  flex: 0 0 360px;      /* fixed visual width in row layout */
-  max-width: 360px;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0;           /* keep padding controlled to avoid extra width */
-}
+body[location='projects'] {
+    .projects {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
 
-body[location='projects'] .thumb img {
-  display: block;
-  width: 100%;          /* fill its .thumb container */
-  max-width: 100%;      /* never exceed container */
-  height: auto;
-  object-fit: cover;    /* optional if you crop images */
+    }
+    .project_item {
+        display: flex;
+        .project_info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1 1 auto;          
+        } 
+    }
 }
-
 
 @media (--small-only) {
     body[location='projects'] {
