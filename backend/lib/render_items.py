@@ -20,7 +20,9 @@ def render_items(folder):
         content = md_file.read_text(encoding='utf-8')
 
         # Extract from matter (between --- ---)
-        match = re.match(r"---\n(.*?)\n---\n(.*)", content, re.DOTALL)
+        match = re.search(r"^---\s*\n(.*?)\n---\s*\n(.*)$", content, re.DOTALL)
+         
+         # re.match(r"---\n(.*?)\n---\n(.*)"
         if not match:
             print(f"Not front matter found in {md_file.name}")
             continue
