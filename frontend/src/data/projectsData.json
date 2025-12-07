@@ -1,23 +1,23 @@
 [
   {
-    "name": "Start with IT",
-    "handle": "start-with-it",
-    "thumbnail": "placeholder",
-    "description": "15 October 2024, I started my first lesson about IT. This was a Google IT Support course. It took me 4 month to finish it. I get familiar with basic concepts of networking, hardware, and security.",
-    "body_html": "<h1>Start With IT</h1>\n<p>I began my IT journey on <strong>15 October 2024</strong>. I started with the Google IT Support course, which introduced me to:</p>\n<ul>\n<li>Networking fundamentals</li>\n<li>Hardware basics</li>\n<li>Security concepts</li>\n</ul>\n<p>It took me <strong>4 months</strong> to finish, and it built the foundation for everything I'm doing now.</p>"
-  },
-  {
     "name": "Kindle Highlights",
     "handle": "kindle-highlights",
     "thumbnail": "placeholder",
     "description": "Automated sync of Kindle highlights using Linux bash scripts.",
-    "body_html": "<h1>Kindle Highlights</h1>\n<p>This project automates the syncing of my Kindle highlights using <strong>Linux bash scripts</strong>. The workflow extracts, cleans, and organizes all highlights into a structured format.</p>\n<p>It helped me learn:\n- How to work efficiently in Linux\n- Shell scripting fundamentals\n- Automating repetitive tasks</p>"
+    "body_html": "<h1>Kindle Highlights</h1>\n<p>This project automates the syncing of my Kindle highlights using <strong>Linux bash scripts</strong>. The workflow extracts, cleans, and organizes all highlights into a structured format.</p>\n<p>It helped me learn:</p>\n<ul>\n<li>How to work efficiently in Linux  </li>\n<li>Shell scripting fundamentals  </li>\n<li>Automating repetitive tasks</li>\n</ul>"
   },
   {
     "name": "Cloud Resume Challenge",
     "handle": "cloud-resume-challenge",
     "thumbnail": "placeholder",
     "description": "Building a serverless resume site on AWS — this very project!",
-    "body_html": "<h1>Cloud Resume Challenge</h1>\n<p>This project is my implementation of the <strong>Cloud Resume Challenge</strong>, a serverless resume website built entirely on <strong>AWS</strong>. It includes a static frontend, API, database, and CI/CD pipeline.</p>\n<p>Through this project I practiced:\n- Serverless architecture\n- Working with AWS services\n- Automating deployments and infrastructure</p>"
+    "body_html": "<h1>Cloud Resume Challenge</h1>\n<p>This project is my implementation of the <strong>Cloud Resume Challenge</strong>, a serverless resume website built entirely on <strong>AWS</strong>. It includes a static frontend, API, database, and CI/CD pipeline.</p>\n<p>Through this project I practiced:</p>\n<ul>\n<li>Serverless architecture  </li>\n<li>Working with AWS services  </li>\n<li>Automating deployments and infrastructure</li>\n</ul>"
+  },
+  {
+    "name": "Start with IT",
+    "handle": "start-with-it",
+    "thumbnail": "placeholder",
+    "description": "15 October 2024, I started my first lesson about IT. This was a Google IT Support course. It took me 4 month to finish it. I get familiar with basic concepts of networking, hardware, and security.",
+    "body_html": "<h1>Start With IT</h1>\n<p>I began my IT journey on <strong>15 October 2024</strong>. I started with the Google IT Support course, which introduced me to:</p>\n<ul>\n<li>Networking fundamentals  </li>\n<li>Hardware basics  </li>\n<li>Security concepts  </li>\n</ul>\n<p>It took me <strong>4 months</strong> to finish, and it built the foundation for everything I'm doing now.</p>"
   }
 ]

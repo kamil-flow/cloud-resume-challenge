@@ -18,6 +18,7 @@ export default function ProjectPage() {
             </NavLink>
             <h1>{project.name}</h1>
             <p>{project.description}</p>
+            <div className="markdown" dangerouslySetInnerHTML={{ __html: project.body_html}} />
         </>
     )
 }    

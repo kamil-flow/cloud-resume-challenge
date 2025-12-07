@@ -1,20 +1,37 @@
 #!/usr/bin/env python3
-import json
-from markdown import markdown
+import json, sys, markdown, yaml, re
 from pathlib import Path
 
+
+
 base = Path(__file__).resolve().parent.parent.parent
-data_path = base / "backend" / "data" / "projects.json"
+input_dir = base / "backend" / "data" / "projects"
 out_path = base / "frontend" / "src" / "data"/ "projectsData.json"
 
-# load JSON from file
-with open(data_path, encoding="utf-8") as f:
-    projects = json.load(f)            # <= json.load, not json.loads
+markdown_files = list(input_dir.glob("*.md"))
 
+# Changes: Instead of importing a json file.
+# I should be collecting all the markdown files in a directory called data/projects and the front matter will create the dicionary structure.
+data_path = base / "backend" / "data" / "projects.json"
+
+# load JSON from file
+projects = []
+for md_file in markdown_files:
+    content = md_file.read_text(encoding='utf-8')
+
+    # Extract from matter (between --- ---)
+    match = re.match(r"---\n(.*?)\n---\n(.*)", content, re.DOTALL)
+    if not match:
+        print(f"Not front matter found in {md_file.name}")
+        continue
+    
+    front_matter, body = match.groups()
+    metadata = yaml.safe_load(front_matter)
+    metadata["body_html"] = markdown.markdown(body)
+    projects.append(metadata)
 # render markdown to html
-for item in projects:
-    if "body" in item and item["body"] is not None:
-        item["body_html"] = markdown(item.pop("body"))
+
+
 
 # write back to file
 with open(out_path, "w", encoding="utf-8") as f:
