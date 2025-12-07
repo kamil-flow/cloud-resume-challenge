@@ -1,6 +1,6 @@
 import React from "react"
 import "css/pages/projects.css"
-import projectsData from "data/projectsData"
+import projectsData from "data/projectsData.json"
 
 import { useParams } from "react-router-dom";
 import { ChevronLeft } from 'lucide-react';
