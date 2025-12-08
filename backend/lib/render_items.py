@@ -38,3 +38,4 @@ def render_items(folder):
     # write back to file
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(items, f, ensure_ascii=False, indent=2)
+    print(f"[ok] wrote {len(items)} items to {out_path}")

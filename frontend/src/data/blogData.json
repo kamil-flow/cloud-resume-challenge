@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "name": "Hello Mars!",
+    "handle": "hello-mars",
+    "date": "2025-12-07",
+    "body_html": "<h1>Hello Mars!</h1>\n<p>This is my <strong>first</strong> blog post. More is coming soon!</p>"
+  }
+]
