@@ -17,6 +17,7 @@ export default function ResumePage() {
 
   return (
     <>
+      <h1 className="fancy">Résumé</h1>
       {/* 1. Header */}
       <ResumeHeader person={person} />
 

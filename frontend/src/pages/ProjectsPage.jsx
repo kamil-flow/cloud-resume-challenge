@@ -5,11 +5,11 @@ import ProjectItem from "comps/ProjectItem"
 
 export default function ProjectsPage() {
   return (
-    <div className="projects">
-        {projectsData.map((project) => (
-            <ProjectItem key={project.handle || project.name} project={project} />
-        ))}
-        
-     </div>
+    <><h1 className="fancy"> Kamil Wolczynski's<br />Projects</h1><div className="projects">
+      {projectsData.map((project) => (
+        <ProjectItem key={project.handle || project.name} project={project} />
+      ))}
+
+    </div></>
     )
 }    

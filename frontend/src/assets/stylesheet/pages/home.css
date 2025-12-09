@@ -1,16 +1,5 @@
 body[location='home'] {
-    h1 {
-        text-align: center;
-        background: url('src/assets/images/title.webp');
-        display: block;
-        width: 100%;
-        aspect-ratio: 21 / 9;
-        overflow: hidden;
-        background-size: contain;
-        span {
-            display: none;
-        }
-    }
+  
     .intro_video img {
         width: 100%;
         

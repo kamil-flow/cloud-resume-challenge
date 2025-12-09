@@ -11,6 +11,7 @@ export default function ProjectPage() {
      const project = projectsData.find(p => p.handle === handle);
   return (
         <>
+            <h1 className="fancy">Project: {project.name}</h1>
             <NavLink className='bttn' to={`/projects`}>
             
                 <ChevronLeft />
