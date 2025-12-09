@@ -7,7 +7,9 @@ import PostItem from 'comps/PostItem'
 export default function HomePage() {
   return (
         <>
+            <h1><span> Kamil Wolczynski's Personal Website</span></h1>
             <div className="intro_video">
+            
                 <img src={me} />
             </div>    
 
