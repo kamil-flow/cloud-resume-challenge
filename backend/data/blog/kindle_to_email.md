@@ -1,3 +1,10 @@
+---
+name: From Kindle to Gmail!
+handle: highlights
+date: '2025-12-14'
+---
+
+
 # From Kindle to Gmail: Building My Own Readwise-Like System on AWS
 
 I've always adored **Readwise** the app resurfacing your book highlights so they stick. 
@@ -176,7 +183,7 @@ aws configure
 ## **Cloud Flow: S3 → Lambda → SNS**
 
     Architecture:
-    ![System diagram](/images/blog/my-post/AWS draw.png)
+    ![](/assets/aws-draw.png)
 
 
 4. Set Up S3 Bucket
