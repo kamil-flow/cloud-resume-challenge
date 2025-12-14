@@ -3,6 +3,7 @@ import 'css/pages/home.css'
 import me from 'images/me.webp'
 import blogData from 'data/blogData'
 import PostItem from 'comps/PostItem'
+import linksData from 'data/linksData.json'
 
 export default function HomePage() {
   return (
@@ -12,6 +13,16 @@ export default function HomePage() {
             
                 <img src={me} />
             </div>    
+            <div className="links">
+                
+                {linksData.map((link) => (
+                    <a href={link.url}>
+                        
+                        <span className="icon" dangerouslySetInnerHTML={{__html: link.icon}} />
+                        <span className="name">{link.name}</span>
+                    </a>
+                 ))}
+            </div>
 
             <section className="posts">
                 <h2>Recent Posts</h2>

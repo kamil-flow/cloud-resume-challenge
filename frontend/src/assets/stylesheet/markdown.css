@@ -12,7 +12,8 @@
 
     }
     p {
-        margin-bottom: 8px;
+        margin-bottom: 12px;
+        line-height: 1.7em;
     }
     img {
         max-width: 100%;
