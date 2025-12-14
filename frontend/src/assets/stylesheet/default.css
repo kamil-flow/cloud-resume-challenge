@@ -119,16 +119,34 @@ div.content {
     }
 }
 
-@media (--small-only) {
-    {
-      
-    }
-    
-}
+
 
 @media (--medium-up) {
    div.content_wrap {
         padding: 40px 20px; 
     }
+    
+}
+.view_counter_wrap {
+    display: flex;
+    justify-content: center;
+    .view_counter {
+        background: rgb(6, 164, 179);
+        color: aliceblue;
+        padding: 8px 16px;
+        border-radius: 999px;
+        margin: 16px;
+        display: flex;
+        gap: 8px;
+    }
+    button {
+        border-radius: 4px;
+        padding: 4px 8px;
+        cursor: pointer;
+        &:hover {
+            background: rgb(115, 220, 251);
+        }
+    }
+
     
 }

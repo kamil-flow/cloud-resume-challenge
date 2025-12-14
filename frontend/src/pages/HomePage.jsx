@@ -4,11 +4,14 @@ import me from 'images/me.webp'
 import blogData from 'data/blogData'
 import PostItem from 'comps/PostItem'
 import linksData from 'data/linksData.json'
+import ViewCounter from 'comps/ViewCounter'
+
 
 export default function HomePage() {
   return (
         <>
             <h1 className="fancy"> Kamil Wolczynski's<br />Blog</h1>
+            <ViewCounter />
             <div className="intro_video">
             
                 <img src={me} />
@@ -16,7 +19,7 @@ export default function HomePage() {
             <div className="links">
                 
                 {linksData.map((link) => (
-                    <a target="_blank" href={link.url}>
+                    <a key={link.url} target="_blank" href={link.url}>
                         
                         <span className="icon" dangerouslySetInnerHTML={{__html: link.icon}} />
                         <span className="name">{link.name}</span>
