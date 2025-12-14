@@ -16,7 +16,7 @@ export default function HomePage() {
             <div className="links">
                 
                 {linksData.map((link) => (
-                    <a href={link.url}>
+                    <a target="_blank" href={link.url}>
                         
                         <span className="icon" dangerouslySetInnerHTML={{__html: link.icon}} />
                         <span className="name">{link.name}</span>
