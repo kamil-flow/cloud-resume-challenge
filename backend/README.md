@@ -25,4 +25,6 @@ invoke render-blog
 invoke render-projects
 ```
 ## Pygments
-For our synytax highlighting for our markdown we need to gererate the css. pip install Pygments pygmentize -S monokai -f html -a .codehilite > pygments.css
+For our synytax highlighting for our markdown we need to gererate the css. 
+pip install Pygments 
+pygmentize -S monokai -f html -a .codehilite > pygments.css

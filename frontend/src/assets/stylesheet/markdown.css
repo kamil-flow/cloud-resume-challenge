@@ -1,0 +1,25 @@
+.markdown {
+    code * {
+        font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        "Courier New",
+        monospace;
+
+    }
+    p {
+        margin-bottom: 8px;
+    }
+    img {
+        max-width: 100%;
+        border: solid 1px rgb(210, 210, 210);
+    }
+    .codehilite {
+    padding: 1px 16px;
+    border-radius: 8;
+    }
+}

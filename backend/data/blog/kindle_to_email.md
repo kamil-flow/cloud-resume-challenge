@@ -31,6 +31,9 @@ In the first project I used cron:
 
 ```bash
 crontab -e
+```
+
+```text
 */5 * * * * ~/kindle_highlights/sync_kindle.sh
 ```
 But what I wanted to try is a different way. To get synchronization only when the Kindle is plugged. the udev is ideal for it.
@@ -61,11 +64,13 @@ But what I wanted to try is a different way. To get synchronization only when th
    ```bash
    sudo nano /etc/udev/rules.d/99-kindle-sync.rules
    ```
-   ```
+
+   ```bash
    ACTION=="add", SUBSYSTEM=="block", ENV{ID_VENDOR_ID}=="1949", ENV{ID_MODEL_ID}=="0324", \
      ENV{ID_FS_USAGE}=="filesystem", ENV{ID_FS_TYPE}=="vfat", ENV{DEVTYPE}=="partition", \
      RUN+="/bin/bash /home/$USER/kindle_highlights/run_sync_when_kindle_arrives.sh"
    ```
+
    Reload:
    ```bash
    sudo udevadm control --reload-rules && sudo udevadm trigger
@@ -76,8 +81,9 @@ But what I wanted to try is a different way. To get synchronization only when th
    Wrapper for udev iscreated to simplify the execution of specific action when certain device events occur:
 
    ```bash
-   # ~/kindle_highlights/run_sync_when_kindle_arrives.sh
    #!/bin/bash
+   # ~/kindle_highlights/run_sync_when_kindle_arrives.sh
+
    exec sudo -u $USER /bin/bash /home/$USER/kindle_highlights/sync_kindle.sh \
      >> /home/$USER/kindle_highlights/sync_log.txt 2>&1
    ```
@@ -138,8 +144,9 @@ But what I wanted to try is a different way. To get synchronization only when th
 Remove short/empty ones:
 
 ```python
-# ~/kindle_highlights/clean_clippings.py
 #!/usr/bin/env python3
+
+# ~/kindle_highlights/clean_clippings.py
 from pathlib import Path
 
 def clean(input_path, output_path):
