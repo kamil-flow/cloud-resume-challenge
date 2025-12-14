@@ -1,36 +1,35 @@
-# From Kindle to Gmail: Building My Own Readwise-Like System on AWS Free Tier 🚀
+# From Kindle to Gmail: Building My Own Readwise-Like System on AWS
 
-I've always adored **Readwise** — that clever app resurfacing your book highlights so they stick. Why pay when I can build my own? Especially as I'm diving into IT, automation, and cloud — this became my playground on AWS free tier.
+I've always adored **Readwise** the app resurfacing your book highlights so they stick. 
 
-**The Magic Result:** Plug my Kindle into Ubuntu → seconds later → Gmail pings with 5 random highlights. No manual steps. Pure automation joy!
-
-
+**The Magic Result:** Pure automation joy! Every day 5 random highlights in to my mailbox.
 
 
+### The Journey: Practicing AWS, and Linux to Event-Driven Automation
+
+Roadmap **Kindle → Ubuntu → S3 → Lambda → Email**.
+
+1.	Write sync_kindle.sh, schedule with udev,
+2.	Install AWS CLI, configure with IAM keys.
+3.	Create S3 bucket, test upload.
+4.	Write lambda_function.py, zip, create Lambda with IAM role (AWSLambdaBasicExecutionRole, AmazonS3ReadOnlyAccess, AmazonSNSFullAccess).
+5.	Set CloudWatch rule, link to Lambda.
+6.	Create SNS topic, subscribe email, update Lambda to publish.
+7.	Test: aws lambda invoke ..., check email.
 
 
+**Version 1 (Cron + Daily):** Script polled every 5 mins.
+
+In the first project I used cron:
+
+```bash
+crontab -e
+*/5 * * * * ~/kindle_highlights/sync_kindle.sh
+```
+But what I wanted to try is a different way. To get synchronization only when the Kindle is plugged. the udev is ideal for it.
 
 
-
-
-
-
-### The Journey: Overwhelmed to Event-Driven Mastery
-
-AWS felt overwhelming — endless services! I started small: Focus on **Kindle → Ubuntu → S3 → Lambda → Email**.
-
-**Version 1 (Cron + Daily):** Script polled every 5 mins, CloudWatch triggered Lambda daily. Worked, but delayed.
-
-**Version 2 (Instant!):** Switched to **udev** for event-driven trigger on plug-in. Email arrives ~10s later.
-
-Inspired by Readwise's resurfacing:
-
-
-
-
-
-
-
+**Version 2 (mount trigged):** Switched to **udev** for event-driven trigger on plug-in. 
 
 ### Deep Dive: How It Works (Rebuild in One Afternoon)
 
@@ -46,7 +45,12 @@ Inspired by Readwise's resurfacing:
    udevadm monitor --environment --udev    # Live debug events
    ```
 
-   **Bullet-Proof udev Rule** (adapt `0324` to your model)
+**hint**: amazon kindle division is Lab126 and their official vendor is 1949, it’s easier when you know what you are searching for.
+
+**hint**: check if the Kindle is mounted, because I have only charged cables as well, these cannot transfer data.
+
+
+   **udev Rule**
    ```bash
    sudo nano /etc/udev/rules.d/99-kindle-sync.rules
    ```
@@ -61,14 +65,9 @@ Inspired by Readwise's resurfacing:
    ```
 
 
-
-
-
-
-
-
 2. **Wrapper & Main Script**
-   Wrapper (runs as your user):
+   Wrapper for udev iscreated to simplify the execution of specific action when certain device events occur:
+
    ```bash
    # ~/kindle_highlights/run_sync_when_kindle_arrives.sh
    #!/bin/bash
@@ -76,76 +75,59 @@ Inspired by Readwise's resurfacing:
      >> /home/$USER/kindle_highlights/sync_log.txt 2>&1
    ```
 
-   Main script (bash in terminal):
+   Main script:
+
    ```bash
-   # ~/kindle_highlights/sync_kindle.sh
-   #!/bin/bash
-   set -euo pipefail
+    #!/bin/bash
+    set -euo pipefail
 
-   KINDLE_MOUNT="/media/$USER/Kindle"
-   SOURCE="${KINDLE_MOUNT}/documents/My Clippings.txt"
-   DEST_DIR="/home/$USER/kindle_highlights"
-   TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+    KINDLE_MOUNT="/media/wolsky/Kindle"
+    SOURCE="${KINDLE_MOUNT}/documents/My Clippings.txt"
+    DEST_DIR="/home/wolsky/kindle_highlights"
+    TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
-   DEST="${DEST_DIR}/My_Clippings_${TIMESTAMP}.txt"
-   FIXED_DEST="${DEST_DIR}/My_Clippings.txt"
-   LOG="${DEST_DIR}/sync_log.txt"
-
-   log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$LOG"; }
-
-   [[ -f "$DEST_DIR/.sync.lock" ]] && exit 0
-   touch "$DEST_DIR/.sync.lock"
-   trap 'rm -f "$DEST_DIR/.sync.lock"' EXIT
-
-   if [[ -f "$SOURCE" ]]; then
-       cp "$SOURCE" "$DEST"
-       cp "$SOURCE" "$FIXED_DEST"
-       log "Synced clippings"
-       aws s3 cp "$FIXED_DEST" "s3://your-bucket/My Clippings.txt" && log "Uploaded!"
-   else
-       log "No file found"
-   fi
-   ```
+    DEST="${DEST_DIR}/My_Clippings_${TIMESTAMP}.txt"          # Raw history
+    LOG="${DEST_DIR}/sync_log.txt"
 
 
+    S3_KEY="My Clippings.txt"
+    S3_BUCKET="s3://wolsky-cytaty"
 
+    log() {
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$LOG";
+    }
 
+    # Prevent double execution
+    [[ -f "$DEST_DIR/.sync.lock" ]] && exit 0
+    touch "$DEST_DIR/.sync.lock"
+    trap 'rm -f "$DEST_DIR/.sync.lock"' EXIT
 
+    if [[ -f "$SOURCE" ]]; then
+        # Raw backup
+        cp "$SOURCE" "$DEST"
+        log "Saved raw copy: $DEST"
 
+        # Clean and upload
+        CLEANED="${DEST_DIR}/My_Clippings_clean.txt"
+        if ~/kindle_highlights/clean_clippings.py "$SOURCE" "$CLEANED"; then
+            log "Successfully cleaned clippings"
+        
+            if aws s3 cp "$CLEANED" "${S3_BUCKET}/${S3_KEY}" --only-show-errors; then
+                log "Uploaded cleaned version → Lambda will send polished highlights"
+            else
+                log "S3 upload failed (cleaned file)"
+            fi
+        else
+            log "Cleaning failed — uploading raw version as fallback"
+            aws s3 cp "$SOURCE" "${S3_BUCKET}/${S3_KEY}" --only-show-errors && \
+            log "Uploaded raw version"
+        fi
+    else
+        log "Kindle not mounted or My Clippings.txt not found"
+    fi
+    ```
 
-
-3. **Cloud Flow: S3 → Lambda → SNS**
-   - S3 stores/overwrites `My Clippings.txt`.
-   - S3 event triggers Lambda instantly.
-   - Lambda picks 5 random highlights → SNS emails.
-
-   Architecture:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   The payoff:
-
-
-
-
-
-
-
-
-### Bonus: Clean Highlights (Optional Python Parser)
+### Bonus: Clean Highlights
 Remove short/empty ones:
 
 ```python
@@ -169,11 +151,21 @@ if __name__ == '__main__':
     clean(Path(sys.argv[1]), Path(sys.argv[2]))
 ```
 
-Call before upload for polished emails.
 
-### Lessons & Security
+3. **Cloud Flow: S3 → Lambda → SNS**
+   - S3 stores/overwrites `My Clippings.txt`.
+   - S3 event triggers Lambda instantly.
+   - Lambda picks 5 random highlights → SNS emails.
+
+   Architecture:
+
+
+
+
+
+### Security
 - MFA root, IAM least privilege, no secrets in code.
-- For posting: Blur emails/account IDs/ARNs.
+
 
 This project taught Linux automation, event-driven design, and cloud basics. If rebuilding, follow this post — it's your complete blueprint.
 
