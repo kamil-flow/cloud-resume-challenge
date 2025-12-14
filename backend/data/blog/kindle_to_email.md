@@ -31,7 +31,7 @@ But what I wanted to try is a different way. To get synchronization only when th
 
 **Version 2 (mount trigged):** Switched to **udev** for event-driven trigger on plug-in. 
 
-### Deep Dive: How It Works (Rebuild in One Afternoon)
+### Deep Dive: How It Works
 
 1. **Instant Trigger: udev Detects Kindle Plug-In**
    - Ubuntu auto-mounts at `/media/$USER/Kindle`.
@@ -150,23 +150,125 @@ def clean(input_path, output_path):
 if __name__ == '__main__':
     clean(Path(sys.argv[1]), Path(sys.argv[2]))
 ```
+3. Install AWS CLI on Ubuntu
+Installed AWS CLI manually since apt failed.
+
+```bash
+sudo apt update && sudo apt install -y unzip curl
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws --version
+rm -rf awscliv2.zip aws
+```
+
+**Crucial**: Configured credentials:
+
+```bash
+
+aws configure
+# Access Key ID: [from IAM]
+# Secret Access Key: [from IAM]
+# Region: us-east-1
+# Output: json
+```
+
+## **Cloud Flow: S3 → Lambda → SNS**
+
+    Architecture:
+    ![System diagram](/images/blog/my-post/AWS draw.png)
 
 
-3. **Cloud Flow: S3 → Lambda → SNS**
-   - S3 stores/overwrites `My Clippings.txt`.
-   - S3 event triggers Lambda instantly.
-   - Lambda picks 5 random highlights → SNS emails.
+4. Set Up S3 Bucket
 
-   Architecture:
+Created wolsky-cytaty bucket 
+```bash
+aws s3 mb s3://wolsky-cytaty/ --region us-east-1
+```
+
+5. Create Lambda Function
+Wrote lambda_function.py to pick 5 highlights.
+```python
+import boto3
+import random
+
+s3 = boto3.client('s3')
+sns = boto3.client('sns')
+
+def lambda_handler(event, context):
+    bucket = 'wolsky-cytaty'
+    key = 'My Clippings.txt'
+    obj = s3.get_object(Bucket=bucket, Key=key)
+    content = obj['Body'].read().decode('utf-8')
+    highlights = [h.strip() for h in content.split('==========') if h.strip()]
+    five = random.sample(highlights, k=min(5, len(highlights)))
+    message = '\n\n'.join(five)
+    
+    sns.publish(
+        TopicArn='arn:aws:sns:us-east-1:123456789:DailyHighlights',
+        Message=message,
+        Subject='Do you remember this?'
+    )
+```
 
 
+6. Lambda
 
+Every service in the automations needs a Lambda ARN.
 
+- CloudWatch Events needs a target
+- Permissions need a function name
+- Testing needs a deployed function
 
-### Security
-- MFA root, IAM least privilege, no secrets in code.
+```bash
+aws lambda create-function \
+  --function-name sendRandomHighlight \
+  --runtime python3.13 \
+  --handler lambda_function.lambda_handler \
+  --role arn:aws:iam::YOUR_ACCOUNT_ID:role/lambda-s3-role \
+  --zip-file fileb://function.zip
+```
+- Create = define infrastructure
+- Update = iterate on logic
 
+```bash
+aws lambda update-function-code --function-name sendRandomHighlight --zip-file fileb://function.zip
+```
 
-This project taught Linux automation, event-driven design, and cloud basics. If rebuilding, follow this post — it's your complete blueprint.
+7. Test:
+```bash
+aws lambda invoke --function-name sendRandomHighlight --payload '{}' output.json.
+```
 
-What sparks your curiosity most — the udev trigger, Python cleaning, or extending to articles/PDFs? Experts often add databases (DynamoDB) or apps (Streamlit dashboard). Your turn — what's next for your version? You've built something incredible! 📚✨
+8. : Schedule with CloudWatch
+
+What: Set daily trigger.
+
+```bash
+aws events put-rule --name DailyHighlightTrigger --schedule-expression 'rate(1 day)'
+```
+```bash
+aws lambda add-permission \
+  --function-name sendRandomHighlight \
+  --statement-id CloudWatchTrigger \
+  --action 'lambda:InvokeFunction' \
+  --principal events.amazonaws.com \
+  --source-arn arn:aws:events:us-east-1:YOUR_ACCOUNT_ID:rule/DailyHighlightTrigger
+```
+```bash
+aws events put-targets \
+  --rule DailyHighlightTrigger \
+  --targets '[{"Id": "1", "Arn": "arn:aws:lambda:us-east-1:YOUR_ACCOUNT_ID:function:sendRandomHighlight"}]'
+```
+
+9. Set Up SNS for Email
+
+What: Added email notifications.
+
+```bash
+aws sns subscribe \
+  --topic-arn arn:aws:sns:us-east-1:YOUR_ACCOUNT_ID:DailyHighlights \
+  --protocol email \
+  --notification-endpoint your_email@gmail.com
+
+This project taught Linux automation, event-driven design, and cloud basics. 
