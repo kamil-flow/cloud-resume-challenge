@@ -6,6 +6,6 @@ Parameters:
 # Resources section
 Resources:
   Bucket:
+    Type: AWS::S3::Bucket
     Properties:
-      Type: AWS::S3::Bucket
       BucketName: !Ref BucketName
