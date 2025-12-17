@@ -1,0 +1,11 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Infrastructure for a Cloud Resume Challenge.
+Parameters:
+  BucketName:
+    Type: string
+# Resources section
+Resources:
+  Bucket:
+    Properties:
+      Type: AWS::S3::Bucket
+      BucketName: !Ref BucketName
