@@ -12,8 +12,6 @@
 
   vars_files:
     - vaults/prod.yml
-   
-
   tasks:
     - name: Deploy or Update stack
       amazon.aws.cloudformation:

@@ -61,4 +61,24 @@ localhost                  : ok=0    changed=0    unreachable=0    failed=1    s
 I'll attempt to install directly.
 ```sh
 /usr/local/py-utils/venvs/ansible/bin/python -m pip install --upgrade pip
+/usr/local/py-utils/venvs/ansible/bin/python -m pip install boto3 botocore
+
 ```
+
+### S3 bucket deployed
+
+### Next step:
+Configure static website hosting without it we're not gonna be able to see our website.
+
+I'll do it in template.yaml
+
+Bucket is enable for website hosting
+
+https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-s3.html#scenario-s3-bucket-website
+
+https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-s3-bucket-websiteconfiguration.html
+
+###
+
+I am using AWS and have a bucket for hosting a static website.
+I have a React app with vitejs. I want the asible playbook to build the code and then copy it to the S3 bucket

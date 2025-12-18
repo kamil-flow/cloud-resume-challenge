@@ -2,10 +2,15 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: Infrastructure for a Cloud Resume Challenge.
 Parameters:
   BucketName:
-    Type: string
+    Type: String
 # Resources section
 Resources:
   Bucket:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-s3-bucket-websiteconfiguration.html
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref BucketName
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        #ErrorDocument: error.html
+      

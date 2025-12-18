@@ -1,0 +1,37 @@
+- name: Build and deploy frontend to S3
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - vaults/prod.yml
+  vars:
+    - bucket_name: kamilwolczynskiresume.com
+    - build_dir: "{{ project_root }}/frontend/dist"
+    - node_dir: "{{ project_root }}/frontend"
+  tasks:
+
+    - name: Install frontend dependencies
+      command: npm ci
+      args:
+        chdir: "{{ frontend_dir }}"
+
+    - name: Build frontend
+      command: npm run build
+      args:
+        chdir: "{{ frontend_dir }}"
+
+    - name: Ensure build directory exists
+      stat:
+        path: "{{ build_dir }}"
+      register: build_stat
+
+    - name: Fail if build directory missing
+      fail:
+        msg: "Build directory not found. Vite build failed."
+      when: not build_stat.stat.exists
+
+    - name: Upload build to S3
+      amazon.aws.s3_sync:
+        bucket: "{{ s3_bucket }}"
+        file_root: "{{ build_dir }}"
+        region: "{{ aws_region }}"
+        delete: true
