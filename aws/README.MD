@@ -82,3 +82,9 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-prope
 
 I am using AWS and have a bucket for hosting a static website.
 I have a React app with vitejs. I want the asible playbook to build the code and then copy it to the S3 bucket
+
+## Instal dependencies for Ansible
+
+```sh
+ansible-galaxy collection install -r requirements.txt
+```

@@ -1,12 +1,17 @@
 - name: Build and deploy frontend to S3
   hosts: localhost
   gather_facts: false
+
   vars_files:
-    - vaults/prod.yml
+  - vaults/prod.yml
+
   vars:
-    - bucket_name: kamilwolczynskiresume.com
-    - build_dir: "{{ project_root }}/frontend/dist"
-    - node_dir: "{{ project_root }}/frontend"
+    bucket_name: kamilwolczynskiresume.com
+    project_root: "{{ playbook_dir | realpath }}/.."
+    build_dir: "{{ project_root }}/frontend/dist" 
+    node_dir: "{{ project_root }}/frontend"
+
+   
   tasks:
 
     - name: Install frontend dependencies
@@ -31,7 +36,19 @@
 
     - name: Upload build to S3
       amazon.aws.s3_sync:
-        bucket: "{{ s3_bucket }}"
+        bucket: "{{ bucket_name }}"
         file_root: "{{ build_dir }}"
-        region: "{{ aws_region }}"
+        aws_access_key: "{{ AWS_ACCESS_KEY_ID }}"
+        aws_secret_key: "{{ AWS_SECRET_ACCESS_KEY }}"
+        region: "{{ AWS_REGION }}"
         delete: true
+
+    - name: Upload index.html with no-store (SPA routing)
+      amazon.aws.s3_object:
+        bucket: "{{ bucket_name }}"
+        object: "index.html"
+        src: "{{ build_dir }}/index.html"
+        mode: put
+        content_type: "text/html; charset=utf-8"
+        cache_controle: "no-store"
+        # permission: public-read
