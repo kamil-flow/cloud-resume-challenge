@@ -1,0 +1,66 @@
+---
+- name: Build and deploy frontend to S3 (Cloud Resume Challenge)
+  hosts: localhost
+  gather_facts: false
+  # No need for collections if we use AWS CLI
+
+  vars_files:
+    - vaults/prod.yml   # ← keep if you have other vaulted vars (e.g. bucket name)
+
+  vars:
+    bucket_name: kamilwolczynskiresume.com
+    project_root: "{{ playbook_dir | realpath }}/../.."
+    frontend_dir: "{{ project_root }}/frontend"
+    build_dir: "{{ frontend_dir }}/dist"
+
+  tasks:
+    - name: Install frontend dependencies (only if node_modules missing)
+      ansible.builtin.command: npm ci
+      args:
+        chdir: "{{ frontend_dir }}"
+        creates: "{{ frontend_dir }}/node_modules/.package-lock.json"
+      changed_when: false   # don't report as changed (idempotent)
+
+    - name: Build frontend (only if build dir missing or outdated)
+      ansible.builtin.command: npm run build
+      args:
+        chdir: "{{ frontend_dir }}"
+        creates: "{{ build_dir }}/index.html"
+      changed_when: false
+
+    - name: Ensure build directory exists
+      ansible.builtin.stat:
+        path: "{{ build_dir }}"
+      register: build_stat
+
+    - name: Fail if build directory missing
+      ansible.builtin.fail:
+        msg: "Build directory not found. Vite build failed."
+      when: not build_stat.stat.exists
+
+    - name: Sync build to S3 (fast & reliable with AWS CLI)
+      ansible.builtin.command:
+        cmd: aws s3 sync "{{ build_dir }}" "s3://{{ bucket_name }}" --delete
+      environment:
+        AWS_DEFAULT_REGION: "{{ AWS_REGION | default('us-east-1') }}"
+        # No AWS keys here! Use env vars or ~/.aws/credentials
+      changed_when: true   # aws s3 sync returns 0 even if nothing changed, so we mark as changed for visibility
+
+    - name: Upload index.html with no-store cache header (for SPA routing)
+      ansible.builtin.command:
+        cmd: >-
+          aws s3 cp "{{ build_dir }}/index.html" "s3://{{ bucket_name }}/index.html"
+          --cache-control "no-store"
+          --content-type "text/html; charset=utf-8"
+      environment:
+        AWS_DEFAULT_REGION: "{{ AWS_REGION | default('us-east-1') }}"
+
+    # Optional: Invalidate CloudFront cache (uncomment if you use CloudFront)
+    # - name: Invalidate CloudFront distribution
+    #   ansible.builtin.command:
+    #     cmd: >-
+    #       aws cloudfront create-invalidation
+    #       --distribution-id {{ cloudfront_distribution_id }}
+    #       --paths "/*"
+    #   environment:
+    #     AWS_DEFAULT_REGION: "{{ AWS_REGION | default('us-east-1') }}"
