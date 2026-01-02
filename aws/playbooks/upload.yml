@@ -8,7 +8,7 @@
   - vaults/prod.yml
 
   vars:
-    bucket_name: kamilwolczynskiresume.com
+    bucket_name: 'www.kamilwolczynskiresume.com'
     project_root: "{{ playbook_dir | realpath }}/../.."
     build_dir: "{{ frontend_dir }}/dist" 
     frontend_dir: "{{ project_root }}/frontend"
@@ -47,7 +47,7 @@
 
     - name: Upload index.html with no-store (SPA routing)
       amazon.aws.s3_object:
-        bucket: "{{ bucket_name }}"
+        bucket: "www.{{ bucket_name }}"
         aws_access_key: "{{ AWS_ACCESS_KEY_ID }}"
         aws_secret_key: "{{ AWS_SECRET_ACCESS_KEY }}"
         region: "{{ AWS_REGION }}"
