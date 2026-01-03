@@ -8,7 +8,7 @@
   - vaults/prod.yml
 
   vars:
-    bucket_name: 'www.kamilwolczynskiresume.com'
+    bucket_name: 'kamilwolczynskiresume.com'
     project_root: "{{ playbook_dir | realpath }}/../.."
     build_dir: "{{ frontend_dir }}/dist" 
     frontend_dir: "{{ project_root }}/frontend"

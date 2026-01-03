@@ -9,7 +9,7 @@
     parameters_file: "{{ (playbook_dir, '..', 'vars', 'parameters.yaml') | path_join | realpath }}"
     cfn_parameters:
       BucketName: 'kamilwolczynskiresume.com'
-      ACMCertificateArn: 'arn:aws:acm:us-east-1:585008073988:certificate/01bbb291-794f-40d6-add2-7816e8e3ee2b'
+      ACMCertificateArn: 'arn:aws:acm:us-east-1:585008073988:certificate/0404f8b6-04ff-4c04-8714-008e9fe87a11'
 
   vars_files:
     - vaults/prod.yml
