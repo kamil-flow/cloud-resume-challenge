@@ -83,10 +83,16 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-prope
 I am using AWS and have a bucket for hosting a static website.
 I have a React app with vitejs. I want the asible playbook to build the code and then copy it to the S3 bucket
 
-## Instal dependencies for Ansible
+## Install dependencies for Ansible
 
 ```sh
 ansible-galaxy collection install -r requirements.txt
 ```
 
 I didn't invalidate because have no issue with it.
+
+## Install SAM CLI
+
+We need to install both AWS SAM CLI and AWS CLI
+
+AWS SAM CLI expects to use a profile so even if you set the AWS env vars it will ignore it.

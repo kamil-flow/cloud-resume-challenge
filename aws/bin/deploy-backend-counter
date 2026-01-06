@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ansible-playbook playbooks/deploy-backend-counter.yml --ask-vault-pass

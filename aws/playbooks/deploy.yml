@@ -5,8 +5,7 @@
   gather_facts: false
 
   vars:
-    template_path: "{{ (playbook_dir, '..', 'template.yaml') | path_join | realpath }}"
-    parameters_file: "{{ (playbook_dir, '..', 'vars', 'parameters.yaml') | path_join | realpath }}"
+    template_path: "{{ (playbook_dir, '..', 'frontemd.yaml') | path_join | realpath }}"
     cfn_parameters:
       BucketName: 'kamilwolczynskiresume.com'
       ACMCertificateArn: 'arn:aws:acm:us-east-1:585008073988:certificate/7f356d28-c54f-42f6-adf1-6f769ccf5bdc'
