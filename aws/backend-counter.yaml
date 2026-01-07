@@ -30,7 +30,7 @@ Resources:
     Properties:
       CorsConfiguration:
         AllowOrigins:
-          - https://www.andrewbrownresume.com
+          - https://www.kamilwolczynskiresume.com
         AllowHeaders:
           - '*'
         AllowMethods:
@@ -42,11 +42,11 @@ Resources:
         ThrottlingBurstLimit: 5
         ThrottlingRateLimit: 10
       Domain:
-        DomainName: api-counter.andrewbrownresume.com
-        CertificateArn: arn:aws:acm:us-east-1:982383527471:certificate/68327ec9-6695-4366-87d5-8aae35176daa
+        DomainName: api-counter.kamilwolczynskiresume.com
+        CertificateArn: arn:aws:acm:us-east-1:585008073988:certificate/7f356d28-c54f-42f6-adf1-6f769ccf5bdc
         EndpointConfiguration: REGIONAL
         Route53:
-          HostedZoneId: Z069441533P5IZZ8ANX2B
+          HostedZoneId: Z0742597AMO9TZQNLL8O
 
   CounterTable:
     Type: AWS::DynamoDB::Table

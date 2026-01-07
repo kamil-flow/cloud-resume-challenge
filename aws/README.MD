@@ -27,6 +27,7 @@ For learning I'll use a vault even for non-sensentive information.
 cd aws
 ansible-vault create playbooks/vaults/prod.yml
 ansible-vault edit playbooks/vaults/prod.yml
+ansible-vault view playbooks/vaults/prod.yml
 ```
 
 quit the vault --> :wq
