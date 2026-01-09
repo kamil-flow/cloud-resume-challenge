@@ -22,7 +22,7 @@
         chdir: "{{ frontend_dir }}"
 
     - name: Build frontend
-      command: npm run build
+      command: npm run build-aws
       args:
         chdir: "{{ frontend_dir }}"
 
