@@ -94,7 +94,7 @@ This playbook:
 1. Installs frontend dependentcies (```npm ci```)
 2. Builds the app (```npm run build-aws```)
 3. Uploads  ```/frontend/dist``` to the S3 www bucket
-4. Ensures ```index.html is uploaded with no-cache headers (SPA correctness)
+4. Ensures ```index.html``` is uploaded with no-cache headers (SPA correctness)
 
 ## CloudFront Caching & Invalidation
 
