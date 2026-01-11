@@ -71,6 +71,12 @@ ul {
 }
 
 /* This is the magic part – perfect centering of the resume */
+
+div.content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
 div.content_wrap {
     flex-grow: 1;
     display: flex;
@@ -88,6 +94,7 @@ div.content {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     border-radius: 12px;
     line-height: 1.7;
+    overflow-x: hidden; /* ← THIS is the fix */
 }
 
  .bttn {
