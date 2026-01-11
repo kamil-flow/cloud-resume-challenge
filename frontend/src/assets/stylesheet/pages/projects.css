@@ -23,7 +23,7 @@ body[location='projects'] .thumb img {
         article {
             padding: 0px
         }
-        .project_item {
+        .projects_item {
             flex-direction: column;
             align-items: center; 
             gap: 16px;

@@ -14,7 +14,8 @@ export default function ProjectItem({ project }) {
 
         </div>
         <NavLink className='thumb' to={`/project/${project.handle}`}>
-          <img src={project.thumbnail || placeholder}></img>
+          <img src={project.thumbnail }
+          alt={`${project.name} thumbnail`}></img>
         </NavLink>        
     </div>
   );

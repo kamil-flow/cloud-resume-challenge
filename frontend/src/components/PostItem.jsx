@@ -10,6 +10,7 @@ export default function ProjectItem( project ) {
         <span className="name">{post.name}</span>
         <span className="date">{post.date}</span>
 
+
     </NavLink>
         
   );
