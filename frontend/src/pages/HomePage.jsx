@@ -10,8 +10,13 @@ import ViewCounter from 'comps/ViewCounter'
 export default function HomePage() {
   return (
         <>
-            <h1 className="fancy"> Kamil Wolczynski's<br />Blog</h1>
+        <div className="hero">
+            <h1 className="fancy"> Kamil Wolczynski: Transitioning from Logistics to IT Automation Specialist<br /></h1>
+            <p className="bio">Leveraging 10 years in logistics to drive AI and automation transformations. Passionate about simplifying complex systems with AWS, and Python.
+                Explore my journey and projects, including Kindle Highlights automation.</p>
+
             <ViewCounter />
+        </div>
             <div className="intro_video">
             
                 <img src={me} />
